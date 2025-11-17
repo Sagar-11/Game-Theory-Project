@@ -1,12 +1,11 @@
 import argparse
+import logging
 from experiment import runExperiments 
 from graphParser import parseGraph, writeGraphToJSON, parseRoutes
 from z3 import  sat, Optimize 
 from solverUtils import (getAllPossibleRoutes, addVarsForSolver, 
                         getUpdatedGraphAndSolution, trySolvingFeasibility, Strategy)
 import networkx as nx
-
-
 
 def solveUnknownPrices(graph, demands, R_ij):
     """ 
@@ -57,7 +56,7 @@ def dynamicPricing(inputGraph, routesAdded, resultsFile):
 
     # Parse the input graph to create a networkx MultiGraph and demands
     graph, demands = parseGraph(inputGraph)
-
+    logging.info("Graph parsed")
     # Parse the routesAdded JSON file 
     routes = parseRoutes(routesAdded)
 
@@ -98,7 +97,16 @@ if __name__ == "__main__":
         type=str,
         help='file path of where to results to'
     )
+    parser.add_argument(
+        '--logging',
+        type=str,
+        default="info",
+        help='logging level : info, warning, debug'
+    )
     args = parser.parse_args()
+
+    logger = logging.getLogger(__name__)
+    logging.basicConfig(level = getattr(logging, args.logging.upper()))
 
     # run the tool
     dynamicPricing(args.inputGraph, args.routesAdded, args.resultsFile)

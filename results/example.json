@@ -1,0 +1,270 @@
+{
+    "graphs": [
+        {
+            "directed": false,
+            "multigraph": true,
+            "graph": {},
+            "nodes": [
+                {
+                    "id": "A"
+                },
+                {
+                    "id": "B"
+                },
+                {
+                    "id": "C"
+                },
+                {
+                    "id": "D"
+                },
+                {
+                    "id": "E"
+                },
+                {
+                    "id": "F"
+                },
+                {
+                    "id": "G"
+                },
+                {
+                    "id": "H"
+                },
+                {
+                    "id": "I"
+                }
+            ],
+            "edges": [
+                {
+                    "color": "red",
+                    "capacity": 100,
+                    "price": 5,
+                    "k": 1,
+                    "f_e": null,
+                    "source": "A",
+                    "target": "C",
+                    "key": 0
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "A",
+                    "target": "C",
+                    "key": 1
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "A",
+                    "target": "B",
+                    "key": 0
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "A",
+                    "target": "H",
+                    "key": 0
+                },
+                {
+                    "k": 1.0,
+                    "color": "red",
+                    "capacity": 80,
+                    "price": null,
+                    "f_e": null,
+                    "source": "A",
+                    "target": "E",
+                    "key": 0
+                },
+                {
+                    "color": "blue",
+                    "capacity": 80,
+                    "price": 10,
+                    "k": 1,
+                    "f_e": null,
+                    "source": "B",
+                    "target": "C",
+                    "key": 0
+                },
+                {
+                    "color": "green",
+                    "capacity": 60,
+                    "price": 15,
+                    "k": 1,
+                    "f_e": null,
+                    "source": "B",
+                    "target": "C",
+                    "key": 1
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "B",
+                    "target": "C",
+                    "key": 2
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "B",
+                    "target": "I",
+                    "key": 0
+                },
+                {
+                    "k": 0.8,
+                    "color": "green",
+                    "capacity": 80,
+                    "price": null,
+                    "f_e": null,
+                    "source": "B",
+                    "target": "G",
+                    "key": 0
+                },
+                {
+                    "color": "red",
+                    "capacity": 100,
+                    "price": 5,
+                    "k": 1,
+                    "f_e": null,
+                    "source": "C",
+                    "target": "D",
+                    "key": 0
+                },
+                {
+                    "color": "blue",
+                    "capacity": 80,
+                    "price": 10,
+                    "k": 1,
+                    "f_e": null,
+                    "source": "C",
+                    "target": "D",
+                    "key": 1
+                },
+                {
+                    "color": "green",
+                    "capacity": 60,
+                    "price": 15,
+                    "k": 1,
+                    "f_e": null,
+                    "source": "C",
+                    "target": "D",
+                    "key": 2
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "C",
+                    "target": "D",
+                    "key": 3
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "C",
+                    "target": "E",
+                    "key": 0
+                },
+                {
+                    "color": "red",
+                    "capacity": 100,
+                    "price": 5,
+                    "k": 1,
+                    "f_e": null,
+                    "source": "D",
+                    "target": "E",
+                    "key": 0
+                },
+                {
+                    "color": "blue",
+                    "capacity": 80,
+                    "price": 10,
+                    "k": 1,
+                    "f_e": null,
+                    "source": "D",
+                    "target": "F",
+                    "key": 0
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "D",
+                    "target": "F",
+                    "key": 1
+                },
+                {
+                    "color": "green",
+                    "capacity": 60,
+                    "price": 15,
+                    "k": 1,
+                    "f_e": null,
+                    "source": "D",
+                    "target": "G",
+                    "key": 0
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "D",
+                    "target": "G",
+                    "key": 1
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "E",
+                    "target": "F",
+                    "key": 0
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "E",
+                    "target": "H",
+                    "key": 0
+                },
+                {
+                    "color": "Bus",
+                    "capacity": 200,
+                    "price": 5,
+                    "k": 2,
+                    "f_e": null,
+                    "source": "G",
+                    "target": "I",
+                    "key": 0
+                }
+            ]
+        }
+    ]
+}

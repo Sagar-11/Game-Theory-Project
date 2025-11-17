@@ -6,13 +6,12 @@ from enum import Enum
 
 from z3 import Real,Int, Sum, sat,unsat,And, Implies, Solver, Optimize , is_expr
 
-def compute_route_cost(route_edges, graph):
+def compute_route_cost(route_edges):
     cost_terms = []
     for u, v, key, data_dict in route_edges:
-        edge_data = graph[u][v][key]
-        f_e = edge_data['f_e']
-        k = edge_data['k']
-        price = edge_data['price']
+        f_e = data_dict['f_e']
+        k = data_dict['k']
+        price = data_dict['price']
         cost_terms.append(k * f_e + price)
     if any([is_expr(cost_term) for cost_term in cost_terms]):
         return Sum(cost_terms)
@@ -191,7 +190,7 @@ def addConstraints(graph, R_ij, f_R_vars, demands, solver):
         
         for j, route_edges in enumerate(demand_routes):
             f_R = f_R_i_vars[j]
-            cost_R = compute_route_cost(route_edges, graph) # Pass graph to helper
+            cost_R = compute_route_cost(route_edges)
             
             # C5 (Cost is never less than minimum): 
             # All routes must have a cost >= T_i.
@@ -255,18 +254,7 @@ def getObjectiveExpr(graph, R_ij, f_R_vars):
     return F_expr
 
 def optimizeObjective(graph, R_ij, f_R_vars, demands, solver):
-    """Optimize using z3 under constraints"""
-    # first lets estimate the f_R when routes cost fully determined/ To cut solution space
-    for i, routes in enumerate(R_ij):
-        route_costs = [compute_route_cost(j, graph) for j in routes]
-        if any([is_expr(route)==True for route in route_costs]):
-            continue
-        else:
-            total = sum(route_costs) 
-            # this is the total spend by all source-demand commuters
-            # set f_R_vars for this demand to be proportional wrt total costs of all
-            # basically if the new edge addition does not enable new routes why f_R should be a variable for it just calculate it directly.
-            f_R_vars[i] = [route_cost / total for route_cost in route_costs]
+    """ Vanilla Strategy : Optimize using z3 under constraints"""
     solver.push()
     addConstraints(graph, R_ij, f_R_vars, demands, solver)
     # Add Objective Function
@@ -288,14 +276,21 @@ def setPricesHighToLow(graph, R_ij, f_R_vars, demands, solver):
     p_current = P_MAX
     isSat = sat
     model = None
+    # Since Vanilla failed lets try some hints for z3
     # first lets estimate the f_R when routes cost fully determined/ To cut solution space
     for i, routes in enumerate(R_ij):
-        route_costs = [compute_route_cost(j, graph) for j in routes]
-        if any([is_expr(route_cost)==True for route_cost in route_costs]):
+        route_prices = []
+        for j, route in enumerate(routes):
+            route_prices.append(Sum([route_edge[3]["price"] for route_edge in route]))
+        if any([is_expr(route_price)==True for route_price in route_prices]):
             continue
         else:
-            total = sum(route_costs) 
-            f_R_vars[i] = [route_cost / total for route_cost in route_costs]
+            total = sum(route_prices)
+            # this is the total spend by all source-demand commuters
+            # set f_R_vars for this demand to be proportional wrt total costs of all
+            # basically if the new edge addition does not enable new routes why f_R should be a variable for it just calculate it directly.
+            f_R_vars[i] = [(route_cost / total) * demands[i]["d"] for route_cost in route_prices]   
+            
     # keep decreasing till sat assignment or p_min hit keep while condition is sat 
     # because before any assertion solver gives sat but we want the loop to run at least once
     while(isSat == sat and p_current >= P_MIN):

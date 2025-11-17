@@ -5,7 +5,7 @@ from networkx.readwrite import json_graph
 from z3 import is_expr 
 import os
 
-def parseGraph(inputfile, includeDemands=True):
+def parseGraph(inputfile, includeDemands=True) -> list[tuple]:
     """ Create a  networkx.multiGraph and a list of demands(source,target,demand) from a JSON file."""
     # read the JSON file
     try:
