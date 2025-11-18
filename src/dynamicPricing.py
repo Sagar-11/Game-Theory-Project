@@ -17,6 +17,7 @@ def solveUnknownPrices(graph, demands, R_ij) -> dict:
     """
     solver = Optimize()
     solver.set(timeout=2000) # 20 seconds timeout
+    solver.set("smt.random_seed", 42) # for repeatable results
     # Add variables 
     f_R_vars = addVarsForSolver(graph, R_ij)
     # The graph.edges now has price vars (if price was null) and flow vars (f_e) added to each edge.

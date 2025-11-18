@@ -31,10 +31,14 @@ def setPricesHighToLow(graph, R_ij, f_R_vars, demands, solver):
     P_MIN = 5
     P_MAX = 120
     P_DELTA = 5
+    
     p_current = P_MAX
-    isSat = sat
+    isSat = sat # Assumes 'sat' is imported from z3
     model = None
+    # Track the price that actually generated the model
+    last_sat_price = None 
     logger.info("Solving with high to low strategy" )
+
     # Since Vanilla failed lets try some hints for z3
     # first lets estimate the f_R when routes cost fully determined/ To cut solution space
     for i, routes in enumerate(R_ij):
@@ -56,18 +60,21 @@ def setPricesHighToLow(graph, R_ij, f_R_vars, demands, solver):
         logger.info(f"Trying Sat with Price: {str(p_current)}" )
         # make graph copy
         graph_copy = graph.copy()
-        # update not set prices to p_current
+        # Update copy with current testing price
         for u, v, data in graph_copy.edges(data=True):
             if 'price' in data and is_expr(data['price']):
                 data['price'] = p_current
+
         solver.push()
         addConstraints(graph_copy, R_ij, f_R_vars, demands, solver)
         # Add Objective Function
-        # objective = getObjectiveExpr(graph_copy, R_ij, f_R_vars)
-        # h = solver.minimize(objective)
+        objective = getObjectiveExpr(graph_copy, R_ij, f_R_vars)
+        h = solver.minimize(objective)
+
         isSat = solver.check()
         if isSat == sat: 
             model = solver.model() 
+            last_sat_price = p_current # This is the one that worked.
             solver.pop()
             p_current -= P_DELTA
             continue  # check sat at a lower price
@@ -78,12 +85,13 @@ def setPricesHighToLow(graph, R_ij, f_R_vars, demands, solver):
             solver.pop()
             break
 
-    if (isSat == sat) or (p_current < P_MAX): 
-        # unsat after p decreased atleast once hence return the last sat model
-        # update the graph first
+    # Check if we ever found a valid model
+    if model is not None and last_sat_price is not None:
+        # Update the graph with the LAST SUCCESSFUL price
         for u, v, key, data in graph.edges(keys=True, data=True):
             if "price" in data and is_expr(data["price"]):
-                data["price"] = p_current
+                data["price"] = last_sat_price
+        logger.info(f"Final optimal price found: {last_sat_price}")
         return model, True
     else:
         return model, False  

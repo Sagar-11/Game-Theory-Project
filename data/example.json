@@ -6,15 +6,15 @@
                 "A", "B", "C", "D", "E", "F", "G"
             ],
             "edge_list": [
-                "A C {'color': 'red', 'capacity': 200, 'price': 5, 'k': 1}", 
-                "B C {'color': 'blue', 'capacity': 160, 'price': 10, 'k': 1}", 
-                "B C {'color': 'green', 'capacity': 120, 'price': 15, 'k': 1}", 
-                "C D {'color': 'red', 'capacity': 200, 'price': 5, 'k': 1}", 
-                "C D {'color': 'blue', 'capacity': 160, 'price': 10, 'k': 1}", 
-                "C D {'color': 'green', 'capacity': 120, 'price': 15, 'k': 1}", 
-                "D E {'color': 'red', 'capacity': 100, 'price': 5, 'k': 1}", 
-                "D F {'color': 'blue', 'capacity': 160, 'price': 10, 'k': 1}", 
-                "D G {'color': 'green', 'capacity': 120, 'price': 15, 'k': 1}" 
+                "A C {'color': 'red', 'capacity': 100, 'price': 5, 'k': 1}", 
+                "B C {'color': 'blue', 'capacity': 80, 'price': 10, 'k': 1}", 
+                "B C {'color': 'green', 'capacity': 60, 'price': 15, 'k': 1}", 
+                "C D {'color': 'red', 'capacity': 100, 'price': 5, 'k': 1}", 
+                "C D {'color': 'blue', 'capacity': 80, 'price': 10, 'k': 1}", 
+                "C D {'color': 'green', 'capacity': 60, 'price': 15, 'k': 1}", 
+                "D E {'color': 'red', 'capacity': 50, 'price': 5, 'k': 1}", 
+                "D F {'color': 'blue', 'capacity': 80, 'price': 10, 'k': 1}", 
+                "D G {'color': 'green', 'capacity': 60, 'price': 15, 'k': 1}" 
             ]
         },
 
