@@ -122,11 +122,12 @@ def setPricesHighToLowWO(graph, R_ij, f_R_vars, demands, solver):
 
         solver.push()
         addC1C2Constraints(graph, R_ij, f_R_vars, solver)
+        addSimpleC3C4(graph, R_ij,f_R_vars,demands,solver)
         #  Add Non-negativity Constraint for all route flows (f_R)
         for f_R_list in f_R_vars:
             for f_R in f_R_list:
                 solver.add(f_R >= 0)
-        addSimpleC3C4(graph, R_ij,f_R_vars,demands,solver)
+
 
         isSat = solver.check()
         if isSat == sat: 
